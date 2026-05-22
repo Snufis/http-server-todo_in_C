@@ -44,16 +44,19 @@ int main(){
         char method[8],path[64];
         sscanf(buf, "%s %s", method, path);
         
-        if(strcmp(path, "/") == 0) { //strona główna
+        char *response;
 
-        }
-        else if (strcmp(path, "/add") == 0) { //todo
+        if (strcmp(path, "/") == 0) {
+            response = "HTTP/1.1 200 OK\r\nContent-Length: 12\r\n\r\nStrona glowna";
+        }       else if (strcmp(path, "/add") == 0) {
+            response = "HTTP/1.1 200 OK\r\nContent-Length: 10\r\n\r\nDodaj todo";
+        }       
+        else {
+            response = "HTTP/1.1 404 Not Found\r\nContent-Length: 9\r\n\r\nNot found";
+        }       
 
-        }
-        else{ //404
-
-        }
-        char *response = "HTTP/1.1 200 OK\r\nContent-Length: 8\r\n\r\njest git";
+        
+        
         if(send(client_fd, response, strlen(response), 0) == -1){
             perror("send");
         }   
